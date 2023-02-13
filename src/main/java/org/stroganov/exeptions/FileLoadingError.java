@@ -1,7 +1,5 @@
 package org.stroganov.exeptions;
 
-import java.io.IOException;
-
 public class FileLoadingError extends Exception {
     public FileLoadingError() {
     }

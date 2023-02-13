@@ -12,10 +12,13 @@ import java.util.Properties;
 
 
 public class MainConfig {
-    private static final String CONFIG_NAME = "app.properties";
+    private static final String CONFIG_NAME = "src/main/app.properties";
     private static final String ERRORMESSAGE = "\"Error loading property file\" + CONFIG_NAME";
     private static Properties mainProperty;
     private static final Logger LOGGER = LogManager.getLogger(MainConfig.class);
+
+    private MainConfig() {
+    }
 
     private static void initProperty() throws IOException {
         try (InputStream in = Files.newInputStream(Paths.get(CONFIG_NAME))) {
