@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.stroganov.exeptions.FileExtensionError;
+import org.stroganov.exeptions.NoSuchSheetException;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,37 +16,25 @@ public class ExelFileReaderImpl implements ExelFileReader {
     private static final String UNDEFINED = "undefined";
 
     @Override
-    public Map<Integer, List<Object>> readExelTable(String file, String sheetName) throws IOException, FileExtensionError {
-        Map<Integer, List<Object>> exelTable = null;
-        try (Workbook workbook = loadWorkbook(file);) {
+    public Map<Integer, List<Object>> readExelTable(String file, String sheetName) throws IOException, FileExtensionError, NoSuchSheetException {
+        Map<Integer, List<Object>> exelTable;
+        try (Workbook workbook = loadWorkbook(file)) {
             Iterator<Sheet> sheetIterator = workbook.sheetIterator();
             while (sheetIterator.hasNext()) {
                 Sheet sheet = sheetIterator.next();
                 if (sheet.getSheetName().equals(sheetName)) {
                     exelTable = processSheet(sheet);
+                    return exelTable;
                 }
-                System.out.println();
             }
         }
-        return exelTable;
+        throw new NoSuchSheetException("Sheet "+ sheetName + " not founded in this book");
     }
 
-    public void read(String filename, String sheetName) throws IOException, FileExtensionError {
-        try (Workbook workbook = loadWorkbook(filename);) {
-            Iterator<Sheet> sheetIterator = workbook.sheetIterator();
-            while (sheetIterator.hasNext()) {
-                Sheet sheet = sheetIterator.next();
-                if (sheet.getSheetName().equals(sheetName)) {
-                    processSheet(sheet);
-                }
-                System.out.println();
-            }
-        }
-    }
 
     private Workbook loadWorkbook(String filename) throws IOException, FileExtensionError {
         String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
-        try (FileInputStream fileInputStream = new FileInputStream(new File(filename));) {
+        try (FileInputStream fileInputStream = new FileInputStream(filename)) {
             switch (extension) {
                 case "xls":
                     // old format
@@ -60,15 +49,12 @@ public class ExelFileReaderImpl implements ExelFileReader {
     }
 
     private HashMap<Integer, List<Object>> processSheet(Sheet sheet) {
-        System.out.println("Start processSheet: " + sheet.getSheetName());
         HashMap<Integer, List<Object>> data = new HashMap<>();
         Iterator<Row> iterator = sheet.rowIterator();
         for (int rowIndex = 0; iterator.hasNext(); rowIndex++) {
             Row row = iterator.next();
             processRow(data, rowIndex, row);
         }
-        System.out.println("Sheet data:");
-        System.out.println(data);
         return data;
     }
 
