@@ -1,5 +1,6 @@
 package org.stroganov.utils;
 
+import lombok.extern.log4j.Log4j2;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.NumberToTextConverter;
@@ -7,11 +8,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.stroganov.exeptions.FileExtensionError;
 import org.stroganov.exeptions.NoSuchSheetException;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 
+@Log4j2
 public class ExelFileReaderImpl implements ExelFileReader {
     private static final String UNDEFINED = "undefined";
 
@@ -28,6 +29,7 @@ public class ExelFileReaderImpl implements ExelFileReader {
                 }
             }
         }
+        log.error("\"Sheet \"+ sheetName + \" not founded in this book\"");
         throw new NoSuchSheetException("Sheet "+ sheetName + " not founded in this book");
     }
 
