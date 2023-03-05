@@ -5,6 +5,10 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.stroganov.actions.ConversionAction;
 import org.stroganov.actions.ConversionActionImpl;
 import org.stroganov.configuration.ConfigurationSpring;
+import org.stroganov.exeptions.FileExtensionError;
+import org.stroganov.exeptions.NoSuchSheetException;
+
+import java.io.IOException;
 
 /**
  * Furniture  converter.
@@ -16,6 +20,16 @@ public class App {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(ConfigurationSpring.class);
         ConversionAction conversionAction = context.getBean(ConversionActionImpl.class);
-        conversionAction.convertAline("source.file", "output.file", "sheet");
+        try {
+            conversionAction.convertAline("source.file", "sheet","output.file");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (FileExtensionError e) {
+            System.out.println(e.getMessage());
+        } catch (NoSuchSheetException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Conversion successfully");
     }
+
 }

@@ -1,7 +1,11 @@
 package org.stroganov.entities;
 
-public class Size {
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@Data
+public class Size {
     private String id;
     private String with;
     private String high;

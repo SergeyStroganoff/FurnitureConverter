@@ -1,6 +1,5 @@
 package org.stroganov.entities;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
