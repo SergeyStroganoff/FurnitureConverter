@@ -1,10 +1,12 @@
 package org.stroganov.utils;
 
+import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
 import org.stroganov.exeptions.FileExtensionError;
 import org.stroganov.exeptions.NoSuchSheetException;
 
@@ -13,6 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Log4j2
+@Component
 public class ExelFileReaderImpl implements ExelFileReader {
     private static final String UNDEFINED = "undefined";
 

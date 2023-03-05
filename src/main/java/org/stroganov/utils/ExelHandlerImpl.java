@@ -1,30 +1,30 @@
 package org.stroganov.utils;
 
+import lombok.extern.log4j.Log4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
-
+@Component
 public class ExelHandlerImpl implements ResultHandler {
 
     private Workbook book;
     private Sheet sheet;
-    private final String EXELEXT = ".xls";
+    private final String EXEL_EXT = ".xls";
 
-    public ExelHandlerImpl() {
-    }
 
-    private int createExelRow(int rowNumber, String... stringOfEmail) {
+    private int createExelRow(int rowNumber, String... savingString) {
         Row row = sheet.createRow(rowNumber);
-        for (int i = 0; i < stringOfEmail.length; i++) {
+        for (int i = 0; i < savingString.length; i++) {
             Cell rowCell = row.createCell(i);
-            rowCell.setCellValue(stringOfEmail[i]);
+            rowCell.setCellValue(savingString[i]);
         }
         return rowNumber;
     }
@@ -40,7 +40,7 @@ public class ExelHandlerImpl implements ResultHandler {
     private void saveExel(String filePathName) {
         try {
             // Записываем всё в файл
-            File file = new File(filePathName + EXELEXT);
+            File file = new File(filePathName + EXEL_EXT);
             FileOutputStream outFile = new FileOutputStream(file);
             book.write(outFile);
             System.out.println("Created file: " + file.getAbsolutePath());

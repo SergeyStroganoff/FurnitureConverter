@@ -1,7 +1,10 @@
 package org.stroganov;
 
-import org.stroganov.config.MainConfig;
-import org.stroganov.exeptions.FileLoadingError;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.stroganov.actions.ConversionAction;
+import org.stroganov.actions.ConversionActionImpl;
+import org.stroganov.configuration.ConfigurationSpring;
 
 /**
  * Furniture  converter.
@@ -9,8 +12,10 @@ import org.stroganov.exeptions.FileLoadingError;
  * and converts them into manufacturer's articles according to the selected brand.
  */
 public class App {
-    public static void main(String[] args) throws FileLoadingError {
-        String sourceFile = MainConfig.getProperty("source.file");
-        System.out.println(sourceFile);
+
+    public static void main(String[] args) {
+        ApplicationContext context = new AnnotationConfigApplicationContext(ConfigurationSpring.class);
+        ConversionAction conversionAction = context.getBean(ConversionActionImpl.class);
+        conversionAction.convertAline("source.file", "output.file", "sheet");
     }
 }
