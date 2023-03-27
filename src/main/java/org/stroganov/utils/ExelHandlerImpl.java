@@ -1,6 +1,5 @@
 package org.stroganov.utils;
 
-import lombok.extern.log4j.Log4j;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -11,6 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 @Component
 public class ExelHandlerImpl implements ResultHandler {
@@ -48,6 +48,7 @@ public class ExelHandlerImpl implements ResultHandler {
             System.out.println("We have got a mistake" + e.getMessage());
         }
     }
+
     @Override
     public void saveToFile(String filePathName, Map<String, String> table) {
         book = new HSSFWorkbook();
@@ -57,6 +58,25 @@ public class ExelHandlerImpl implements ResultHandler {
         tableName.setCellValue("Result conversation tables");
         writeMapToExel(table);
         saveExel(filePathName);
+    }
+
+    @Override
+    public void saveToFile(String filePathName, List<String[]> list) {
+        book = new HSSFWorkbook();
+        sheet = book.createSheet("Result");
+        Row row = sheet.createRow(0);
+        Cell tableName = row.createCell(0);
+        tableName.setCellValue("Result conversation tables");
+        writeBufListToExel(list);
+        saveExel(filePathName);
+    }
+
+    private void writeBufListToExel(List<String[]> list) {
+        int rowNumber = 1;
+        for (String[] stringBuf : list) {
+            createExelRow(rowNumber, stringBuf);
+            rowNumber++;
+        }
     }
 }
 

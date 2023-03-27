@@ -3,7 +3,6 @@ package org.stroganov.actions;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.extern.log4j.Log4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +34,12 @@ public class ConversionActionImpl implements ConversionAction {
 
 
     @Override
-    public boolean convertAline(String sourceFileName, String sheetSourceName, String resultFileString) throws IOException, FileExtensionError, NoSuchSheetException {
+    public List<String[]> convertAline(String sourceFileName, String sheetSourceName) throws IOException, FileExtensionError, NoSuchSheetException {
         String incomingFile = environment.getProperty(sourceFileName);
-        String outFile = environment.getProperty(resultFileString);
+
         String sheetName = environment.getProperty(sheetSourceName);
         List<String> listItemsString = getStringListFromSource(incomingFile, sheetName);
-        List<String[]> resultBuffersOfStrings = covertToBufferOfItemFieldValue(listItemsString);
-
-        resultBuffersOfStrings.forEach(x -> {
-            for (String s : x) {
-                // System.out.println(s);
-            }
-        }); //todo
-
-        return true;
+        return covertToBufferOfItemFieldValue(listItemsString);
     }
 
     private List<String> getStringListFromSource(String sourceFileName, String sheetSourceName) throws IOException, FileExtensionError, NoSuchSheetException {
@@ -57,7 +48,7 @@ public class ConversionActionImpl implements ConversionAction {
         for (Map.Entry<Integer, List<Object>> entry : mapFromSource.entrySet()) {
             for (Object object : entry.getValue()) {
                 listItemsString.add(object.toString());
-                LOGGER.info("Object added");
+                LOGGER.info("Object added" + object);
             }
         }
         return listItemsString;
@@ -67,10 +58,8 @@ public class ConversionActionImpl implements ConversionAction {
         List<String[]> convertedStringList = new ArrayList<>(stringList.size());
         for (String currentString : stringList) {
             LOGGER.info(currentString);
-          //  System.out.println(currentString);
             convertedStringList.add(stringParser.stringCatalogueParser(currentString));
         }
         return convertedStringList;
     }
-
 }
