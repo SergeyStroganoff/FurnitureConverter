@@ -1,11 +1,10 @@
 package org.stroganov.parsers;
 
-
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
-@Component
+@Component("stringParserAlineImpl")
 public class StringParserAlineImpl implements StringParser {
     @Override
     public String[] stringCatalogueParser(String currentString) {
@@ -39,11 +38,8 @@ public class StringParserAlineImpl implements StringParser {
         preparedStringBuf[6] = splitString[firstDollarSign + 1].substring(1);
         preparedStringBuf[7] = splitString[firstDollarSign + 2].substring(1);
 
-        Arrays.stream(preparedStringBuf).forEach(x->{
-            System.out.print(x+" ");
-        });
+        Arrays.stream(preparedStringBuf).forEach(x -> System.out.print(x + " "));
         System.out.println();
-
         return preparedStringBuf;
     }
 }
