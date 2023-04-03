@@ -31,9 +31,8 @@ public class ConversionActionImpl implements ConversionAction {
     @Autowired
     private ExelFileReader exelFileReader;
     @Autowired
-    @Qualifier("stringParserAlineAlternativeImpl")
+    @Qualifier("stringParserAlineImprovedImpl")
     private StringParser stringParser;
-
 
     @Override
     public List<String[]> convertAline(String sourceFileName, String sheetSourceName) throws IOException, FileExtensionError, NoSuchSheetException {
@@ -60,7 +59,7 @@ public class ConversionActionImpl implements ConversionAction {
         List<String[]> convertedStringList = new ArrayList<>(stringList.size());
         for (String currentString : stringList) {
             LOGGER.info(currentString);
-            convertedStringList.add(stringParser.stringCatalogueParser(currentString));
+            convertedStringList.add(stringParser.parseString(currentString));
         }
         return convertedStringList;
     }

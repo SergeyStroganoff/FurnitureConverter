@@ -7,7 +7,7 @@ import java.util.Arrays;
 @Component("stringParserAlineImpl")
 public class StringParserAlineImpl implements StringParser {
     @Override
-    public String[] stringCatalogueParser(String currentString) {
+    public String[] parseString(String currentString) {
         String[] preparedStringBuf = new String[8];
         String[] splitString = currentString.split(" ");
         int firstDash = 0;

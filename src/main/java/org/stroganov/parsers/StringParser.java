@@ -1,5 +1,5 @@
 package org.stroganov.parsers;
 
 public interface StringParser {
-    String[] stringCatalogueParser(String currentString);
+    String[] parseString(String currentString);
 }

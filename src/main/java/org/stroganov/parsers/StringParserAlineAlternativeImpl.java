@@ -6,8 +6,11 @@ import java.util.Arrays;
 
 @Component("stringParserAlineAlternativeImpl")
 public class StringParserAlineAlternativeImpl implements StringParser {
+
+    public static final String NONE = "none";
+
     @Override
-    public String[] stringCatalogueParser(String currentString) {
+    public String[] parseString(String currentString) {
         String[] preparedStringBuf = new String[8];
         String[] splitString = currentString.split(" ");
         int firstDash = 0;
@@ -27,21 +30,21 @@ public class StringParserAlineAlternativeImpl implements StringParser {
 
         String[] stringsSeparatedByRegexp = currentString.split("\\S+”W");
         if (stringsSeparatedByRegexp.length == 2) {
-            preparedStringBuf[2] = currentString.substring(stringsSeparatedByRegexp[0].length() - 1, currentString.length() - stringsSeparatedByRegexp[1].length());
+            preparedStringBuf[2] = currentString.substring(stringsSeparatedByRegexp[0].length() - 1, currentString.length() - stringsSeparatedByRegexp[1].length()-2);
         } else {
             preparedStringBuf[2] = "0";
         }
 
         stringsSeparatedByRegexp = currentString.split("\\S+”H");
         if (stringsSeparatedByRegexp.length == 2) {
-            preparedStringBuf[3] = currentString.substring(stringsSeparatedByRegexp[0].length() - 1, currentString.length() - stringsSeparatedByRegexp[1].length());
+            preparedStringBuf[3] = currentString.substring(stringsSeparatedByRegexp[0].length() - 1, currentString.length() - stringsSeparatedByRegexp[1].length()-2);
         } else {
             preparedStringBuf[3] = "0";
         }
 
         stringsSeparatedByRegexp = currentString.split("\\S+”D");
         if (stringsSeparatedByRegexp.length == 2) {
-            preparedStringBuf[4] = currentString.substring(stringsSeparatedByRegexp[0].length() - 1, currentString.length() - stringsSeparatedByRegexp[1].length());
+            preparedStringBuf[4] = currentString.substring(stringsSeparatedByRegexp[0].length() - 1, currentString.length() - stringsSeparatedByRegexp[1].length()-2);
         } else {
             preparedStringBuf[4] = "0";
         }
@@ -50,13 +53,13 @@ public class StringParserAlineAlternativeImpl implements StringParser {
         String priceString = currentString.substring(stringsSeparatedByRegexp[0].length());
         if (priceString.length() > 0) {
             stringsSeparatedByRegexp = priceString.split(" ");
-            preparedStringBuf[5] = stringsSeparatedByRegexp[0];
-            preparedStringBuf[6] = stringsSeparatedByRegexp[1];
-            preparedStringBuf[7] = stringsSeparatedByRegexp[2];
+            preparedStringBuf[5] = stringsSeparatedByRegexp[0].substring(1);
+            preparedStringBuf[6] = stringsSeparatedByRegexp[1].substring(1);
+            preparedStringBuf[7] = stringsSeparatedByRegexp[2].substring(1);
         } else {
-            preparedStringBuf[5] = "zerro";
-            preparedStringBuf[6] = "zerro";
-            preparedStringBuf[7] = "zerro";
+            preparedStringBuf[5] = NONE;
+            preparedStringBuf[6] = NONE;
+            preparedStringBuf[7] = NONE;
         }
         Arrays.stream(preparedStringBuf).forEach(x -> System.out.print(x + " "));
         System.out.println();
