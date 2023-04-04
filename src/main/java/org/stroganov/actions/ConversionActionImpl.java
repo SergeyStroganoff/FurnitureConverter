@@ -25,13 +25,13 @@ import java.util.Map;
 @NoArgsConstructor
 public class ConversionActionImpl implements ConversionAction {
 
-    private static final Logger LOGGER = LogManager.getLogger(ConversionActionImpl.class);
+   private static final Logger LOGGER = LogManager.getLogger(ConversionActionImpl.class);
     @Autowired
     private Environment environment;
     @Autowired
     private ExelFileReader exelFileReader;
     @Autowired
-    @Qualifier("stringParserAlineImprovedImpl")
+    @Qualifier("stringParserAlineImpl")
     private StringParser stringParser;
 
     @Override
@@ -49,7 +49,7 @@ public class ConversionActionImpl implements ConversionAction {
         for (Map.Entry<Integer, List<Object>> entry : mapFromSource.entrySet()) {
             for (Object object : entry.getValue()) {
                 listItemsString.add(object.toString());
-                LOGGER.info("Object added" + object);
+                LOGGER.debug(String.format("Object added: %s", object));
             }
         }
         return listItemsString;
@@ -58,7 +58,7 @@ public class ConversionActionImpl implements ConversionAction {
     private List<String[]> covertToBufferOfItemFieldValue(List<String> stringList) {
         List<String[]> convertedStringList = new ArrayList<>(stringList.size());
         for (String currentString : stringList) {
-            LOGGER.info(currentString);
+            LOGGER.debug(currentString);
             convertedStringList.add(stringParser.parseString(currentString));
         }
         return convertedStringList;
