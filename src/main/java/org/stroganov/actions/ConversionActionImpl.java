@@ -37,7 +37,6 @@ public class ConversionActionImpl implements ConversionAction {
     @Override
     public List<String[]> convertAline(String sourceFileName, String sheetSourceName) throws IOException, FileExtensionError, NoSuchSheetException {
         String incomingFile = environment.getProperty(sourceFileName);
-
         String sheetName = environment.getProperty(sheetSourceName);
         List<String> listItemsString = getStringListFromSource(incomingFile, sheetName);
         return covertToBufferOfItemFieldValue(listItemsString);
