@@ -7,7 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.stroganov.exeptions.FileExtensionError;
 import org.stroganov.exeptions.NoSuchSheetException;
@@ -25,9 +24,11 @@ import java.util.Map;
 @NoArgsConstructor
 public class ConversionActionImpl implements ConversionAction {
 
-   private static final Logger LOGGER = LogManager.getLogger(ConversionActionImpl.class);
-    @Autowired
-    private Environment environment;
+    private static final Logger LOGGER = LogManager.getLogger(ConversionActionImpl.class);
+
+
+    private String sourceFileName;
+    private String sheetSourceName;
     @Autowired
     private ExelFileReader exelFileReader;
     @Autowired
@@ -36,9 +37,7 @@ public class ConversionActionImpl implements ConversionAction {
 
     @Override
     public List<String[]> convertAline(String sourceFileName, String sheetSourceName) throws IOException, FileExtensionError, NoSuchSheetException {
-        String incomingFile = environment.getProperty(sourceFileName);
-        String sheetName = environment.getProperty(sheetSourceName);
-        List<String> listItemsString = getStringListFromSource(incomingFile, sheetName);
+        List<String> listItemsString = getStringListFromSource(sourceFileName, sheetSourceName);
         return covertToBufferOfItemFieldValue(listItemsString);
     }
 

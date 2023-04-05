@@ -4,5 +4,5 @@ import org.stroganov.ui.UserResponse;
 
 @FunctionalInterface
 public interface ResponseProcessingAction {
-    void handle(UserResponse userResponse);
+    String handle(UserResponse userResponse);
 }
