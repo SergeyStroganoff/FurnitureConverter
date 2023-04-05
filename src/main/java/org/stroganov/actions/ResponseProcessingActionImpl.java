@@ -46,7 +46,6 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
             case "2": {
                 break;
             }
-
             case "3": {
                 System.exit(0);
             }
@@ -56,7 +55,6 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
         }
         return resultMessage;
     }
-
     private String alineConversation() {
 
         try {

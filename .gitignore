@@ -20,5 +20,6 @@
 *.xls
 *.xlsx
 *.png
+hibernate.properties
 
 

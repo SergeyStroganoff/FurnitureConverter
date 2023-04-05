@@ -6,7 +6,8 @@ import org.stroganov.actions.UserConversationAction;
 import org.stroganov.configuration.ConfigurationSpring;
 
 /**
- * Furniture  converter.
+ * Furniture  converter -
+ * utility to convert and list furniture to store in database.
  */
 public class App {
 
