@@ -18,7 +18,7 @@ public class Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "article")
+    @Column(name = "article",unique = true)
     private String article;
 
     @Column(name = "description")

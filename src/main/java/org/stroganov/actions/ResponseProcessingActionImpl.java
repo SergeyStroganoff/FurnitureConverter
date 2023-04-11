@@ -56,7 +56,6 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
         return resultMessage;
     }
     private String alineConversation() {
-
         try {
             List<String[]> listBufferedStrings = conversionAction.convertAline(sourceFile, sheet);
             resultHandler.saveToFile(outFile, listBufferedStrings);

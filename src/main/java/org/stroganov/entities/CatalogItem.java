@@ -14,7 +14,7 @@ import javax.persistence.*;
 @ToString
 public class CatalogItem {
     @Id
-    @Column(name = "item_id")
+    @Column(name = "item_id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

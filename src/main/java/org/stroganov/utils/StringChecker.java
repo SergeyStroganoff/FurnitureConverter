@@ -29,5 +29,4 @@ public class StringChecker implements IStringCheck {
         }
         return true;
     }
-
 }

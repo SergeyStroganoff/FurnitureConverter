@@ -68,7 +68,6 @@ public class ExelFileReaderImpl implements ExelFileReader {
             processCell(cell, data.get(rowIndex));
         }
     }
-
     /*
   В методе processCell() для каждой ячейки мы вначале смотрим формат ячейки с помощью метода getCellType().
   Всего есть 4 значимых типа для формата ячейки: это строка, число, булевый (логический) тип и формула,
