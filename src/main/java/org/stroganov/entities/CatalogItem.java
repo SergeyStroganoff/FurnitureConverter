@@ -27,11 +27,9 @@ public class CatalogItem {
     @JoinColumn(name = "manufacture_id")
     private Manufacture producer;
 
-    @Column(name = "style_name")
-    private String styleName;
-
-    @Column(name = "style_article")
-    private String styleArticle;
+    @ManyToOne
+    @JoinColumn(name = "manufacture_id", referencedColumnName = "id")
+    private CatalogItemStyle catalogItemStyle;
 
     @Column(name = "price")
     private double price;
