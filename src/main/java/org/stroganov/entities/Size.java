@@ -16,10 +16,10 @@ public class Size {
     @Column(name = "size_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-    @Column(name = "with")
-    private String with;
-    @Column(name = "hight")
-    private String high;
+    @Column(name = "width")
+    private String width;
+    @Column(name = "height")
+    private String height;
     @Column(name = "depth")
     private String depth;
 }
