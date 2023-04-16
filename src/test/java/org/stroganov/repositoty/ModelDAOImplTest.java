@@ -19,9 +19,9 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ModelDAOImplTest {
 
-    private static final String INPUT_PARAMETERS_CANNOT_BE_NULL = "Input parameters cannot be null";
+    private static final String INPUT_PARAMETERS_CANNOT_BE_NULL = "Input parameters cannot be null.";
 
-    private static final String ERROR_MESSAGE_FOR_QUERY = "Error executing query";
+    private static final String ERROR_MESSAGE_FOR_QUERY = "Error while executing query.";
 
     private ModelDAOImpl modelDAO;
 
@@ -97,9 +97,9 @@ class ModelDAOImplTest {
     @Test
     void getByArticleV2() {
         // Givenng
-        String parameterName = "article"; // Replace with the actual parameter name
-        String parameterValue = "B36"; // Replace with the actual parameter value
-        Class<Model> entityClass = Model.class; // Replace with the actual entity class
+        String parameterName = "article";
+        String parameterValue = "B36";
+        Class<Model> entityClass = Model.class;
         Query<Model> query = mock(Query.class);
         when(sessionFactory.getCurrentSession()).thenReturn(mock(Session.class));
         when(sessionFactory.getCurrentSession().createQuery(anyString(), eq(entityClass))).thenReturn(query);

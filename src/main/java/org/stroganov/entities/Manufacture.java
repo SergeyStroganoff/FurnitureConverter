@@ -17,7 +17,7 @@ public class Manufacture {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name",length = 20)
     private String name;
 
     @Column(name = "description")
