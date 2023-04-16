@@ -6,7 +6,7 @@ import org.hibernate.annotations.Cascade;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "item")
+@Table(name = "catalog_item")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -14,7 +14,7 @@ import javax.persistence.*;
 @ToString
 public class CatalogItem {
     @Id
-    @Column(name = "item_id",nullable = false)
+    @Column(name = "catalog_item_id",nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 

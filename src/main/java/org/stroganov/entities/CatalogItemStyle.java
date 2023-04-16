@@ -7,13 +7,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "catalog_item_style",
         uniqueConstraints = {@UniqueConstraint(name = "UniqueStyleArticleName", columnNames = {"style_article", "style_name"})})
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-
 public class CatalogItemStyle {
     @Id
     @Column(name = "id", nullable = false)

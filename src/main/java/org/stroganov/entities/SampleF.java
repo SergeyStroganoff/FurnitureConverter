@@ -4,7 +4,6 @@ import lombok.*;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.util.List;
 
 /**
  * Entity reflecting furniture models from the SampleF catalog
@@ -13,7 +12,7 @@ import java.util.List;
 
 
 @Entity
-@Table(name = "size")
+@Table(name = "samplef")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -26,12 +25,12 @@ public class SampleF {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "article")
+    @Column(name = "article", length = 15)
     private String article;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JoinColumn(name = "department_id") //foreign key is always here.
+    @JoinColumn(name = "model_id") //foreign key is always here.
     private Model model;
 }
 

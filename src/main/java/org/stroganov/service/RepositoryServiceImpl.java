@@ -11,17 +11,17 @@ public class RepositoryServiceImpl implements RepositoryService {
     private final CatalogItemDAO catalogItemDAO;
     private final ModelDAO modelDAO;
     private final SampleFDAO sampleFDAO;
-    private final SizeDAO sizeDAO;
+    private final DimensionDAO dimensionDAO;
     private final ManufactureDAO manufactureDAO;
 
     private final CatalogItemStyleDAO catalogItemStyleDAO;
 
     @Autowired
-    public RepositoryServiceImpl(CatalogItemDAO catalogItemDAO, ModelDAO modelDAO, SampleFDAO sampleFDAO, SizeDAO sizeDAO, ManufactureDAO manufactureDAO, CatalogItemStyleDAO catalogItemStyleDAO) {
+    public RepositoryServiceImpl(CatalogItemDAO catalogItemDAO, ModelDAO modelDAO, SampleFDAO sampleFDAO, DimensionDAO dimensionDAO, ManufactureDAO manufactureDAO, CatalogItemStyleDAO catalogItemStyleDAO) {
         this.catalogItemDAO = catalogItemDAO;
         this.modelDAO = modelDAO;
         this.sampleFDAO = sampleFDAO;
-        this.sizeDAO = sizeDAO;
+        this.dimensionDAO = dimensionDAO;
         this.manufactureDAO = manufactureDAO;
         this.catalogItemStyleDAO = catalogItemStyleDAO;
     }
@@ -42,8 +42,8 @@ public class RepositoryServiceImpl implements RepositoryService {
     }
 
     @Override
-    public Size getSizeByWHD(String with, String height, String depth) {
-        return sizeDAO.findSizeByDimensions(with, height, depth);
+    public Dimension getDimensionByWHD(String with, String height, String depth) {
+        return dimensionDAO.findDimensionByDimensions(with, height, depth);
     }
 
     @Override

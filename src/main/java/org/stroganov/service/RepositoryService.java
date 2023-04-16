@@ -9,7 +9,7 @@ public interface RepositoryService {
 
     Model getModelByArticle(String article);
 
-    Size getSizeByWHD(String with, String height, String depth);
+    Dimension getDimensionByWHD(String with, String height, String depth);
 
     Manufacture getManufactureByName(String name);
     CatalogItemStyle getCatalogItemStyleByArticleAndName(String article, String name);

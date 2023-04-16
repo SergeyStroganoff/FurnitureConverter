@@ -47,11 +47,11 @@ public class AlineCatalogEntityLoader implements EntityLoader {
     private List<CatalogItem> createCatalogItemFromExelRow(List<Object> objectList) {
         Assert.notNull(objectList, CATALOG_ITEM_FROM_EXEL_ROW_IS_NULL);
         List<CatalogItem> catalogItemList = new ArrayList<>();
-        Size size = new Size();
+        Dimension dimension = new Dimension();
         Model model = new Model();
         SampleF sampleF = new SampleF();
         sampleF.setModel(model);
-        model.setSize(size);
+        model.setDimension(dimension);
         String firstValue = objectList.get(0).toString().strip();
         if (firstValue.isEmpty()) {
             return catalogItemList;
@@ -59,9 +59,9 @@ public class AlineCatalogEntityLoader implements EntityLoader {
         sampleF.setArticle(firstValue);
         model.setArticle(objectList.get(1).toString());
         model.setDescription((String)objectList.get(2));
-        size.setWidth(objectList.get(3).toString());
-        size.setHeight(objectList.get(4).toString());
-        size.setDepth(objectList.get(5).toString());
+        dimension.setWidth(objectList.get(3).toString());
+        dimension.setHeight(objectList.get(4).toString());
+        dimension.setDepth(objectList.get(5).toString());
 
         CatalogItem catalogItem = new CatalogItem();
         catalogItem.setModel(model);

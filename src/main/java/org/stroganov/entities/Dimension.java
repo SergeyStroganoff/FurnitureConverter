@@ -5,21 +5,21 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "size")
+@Table(name = "dimension")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class Size {
+public class Dimension {
     @Id
-    @Column(name = "size_id")
+    @Column(name = "dimension_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
-    @Column(name = "width")
+    @Column(name = "width", length = 10)
     private String width;
-    @Column(name = "height")
+    @Column(name = "height", length = 10)
     private String height;
-    @Column(name = "depth")
+    @Column(name = "depth", length = 10)
     private String depth;
 }

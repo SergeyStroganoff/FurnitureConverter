@@ -26,7 +26,7 @@ public class Model {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JoinColumn(name = "size_id")
-    private Size size;
+    @JoinColumn(name = "dimension_id")
+    private Dimension dimension;
 }
 
