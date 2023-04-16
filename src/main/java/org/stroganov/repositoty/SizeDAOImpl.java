@@ -16,6 +16,8 @@ public class SizeDAOImpl extends ItemDAO implements SizeDAO {
         super(sessionFactory);
     }
 
+    @Autowired
+
     @Override
     public Size findSizeByDimensions(String widthValue, String heightValue, String depthValue) {
         if (widthValue == null || heightValue == null || depthValue == null) {
