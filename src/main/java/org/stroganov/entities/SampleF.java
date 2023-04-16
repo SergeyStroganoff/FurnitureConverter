@@ -34,3 +34,4 @@ public class SampleF {
     @JoinColumn(name = "department_id") //foreign key is always here.
     private Model model;
 }
+

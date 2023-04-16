@@ -23,12 +23,14 @@ public class CatalogItem {
     @JoinColumn(name = "model_id")
     private Model model;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "manufacture_id")
     private Manufacture producer;
 
-    @ManyToOne
-    @JoinColumn(name = "manufacture_id", referencedColumnName = "id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
+    @JoinColumn(name = "catalog_item_style_id", referencedColumnName = "id")
     private CatalogItemStyle catalogItemStyle;
 
     @Column(name = "price")
