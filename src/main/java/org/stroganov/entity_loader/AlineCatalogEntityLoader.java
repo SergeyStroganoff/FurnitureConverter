@@ -13,21 +13,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * implementation of loading the value of fields of furniture items from an exel file,
+ * deserializing entities and saving them in a list
+ */
 @Component
 public class AlineCatalogEntityLoader implements EntityLoader {
     public static final String CATALOG_ITEM_FROM_EXEL_ROW_IS_NULL = "Input parameter 'objectList' in method createCatalogItemFromExelRow is NULL";
-    /**
-     * implementation of loading the value of fields of furniture items from an exel file,
-     * deserializing entities and saving them in a list
-     */
-
     private static final String DESCRIPTION =
             "Aline International is a kitchen and bath cabinets wholesaler based in Great Chicago area." +
             "Phone: (708) 478-2471\n" +
             "Email: info@alineintl.com\n" +
             "Address: 9100 W 191st St, Mokena, IL 60448, United States";
-
     private final Manufacture manufacture = new Manufacture(0,"Aline", DESCRIPTION);
 
     private final HashMap alineStyleMap = new HashMap<>(); //todo
@@ -56,6 +53,7 @@ public class AlineCatalogEntityLoader implements EntityLoader {
         if (firstValue.isEmpty()) {
             return catalogItemList;
         }
+
         sampleF.setArticle(firstValue);
         model.setArticle(objectList.get(1).toString());
         model.setDescription((String)objectList.get(2));
