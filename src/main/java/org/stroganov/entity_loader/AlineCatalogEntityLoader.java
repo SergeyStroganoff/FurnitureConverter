@@ -59,8 +59,8 @@ public class AlineCatalogEntityLoader implements EntityLoader {
         sampleF.setArticle(firstValue);
         model.setArticle(objectList.get(1).toString());
         model.setDescription((String)objectList.get(2));
-        size.setWith(objectList.get(3).toString());
-        size.setHigh(objectList.get(4).toString());
+        size.setWidth(objectList.get(3).toString());
+        size.setHeight(objectList.get(4).toString());
         size.setDepth(objectList.get(5).toString());
 
         CatalogItem catalogItem = new CatalogItem();

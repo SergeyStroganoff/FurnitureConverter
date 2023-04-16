@@ -28,5 +28,5 @@ public class Model {
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "size_id")
     private Size size;
-
 }
+

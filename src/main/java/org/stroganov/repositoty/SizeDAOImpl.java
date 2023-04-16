@@ -11,12 +11,12 @@ import org.stroganov.entities.Size;
 @Repository
 @Transactional
 public class SizeDAOImpl extends ItemDAO implements SizeDAO {
-    private final SessionFactory sessionFactory;
-
     @Autowired
     public SizeDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+        super(sessionFactory);
     }
+
+    @Autowired
 
     @Override
     public Size findSizeByDimensions(String widthValue, String heightValue, String depthValue) {
@@ -24,7 +24,6 @@ public class SizeDAOImpl extends ItemDAO implements SizeDAO {
             LOGGER.error(INPUT_PARAMETERS_CANNOT_BE_NULL);
             throw new IllegalArgumentException(INPUT_PARAMETERS_CANNOT_BE_NULL);
         }
-
         Size size;
         try (Session session = sessionFactory.getCurrentSession()) {
             Query<Size> query = session.createQuery("FROM Size WHERE width = :widthValue AND height = :heightValue AND depth = :depthValue", Size.class);
