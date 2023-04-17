@@ -19,6 +19,9 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
     @Value("${output.file}")
     private String alineOutFile;
 
+    @Value("${prepared.file}")
+    private String alinePreparedFile;
+
     @Value("${source.file}")
     private String alineSourceFile;
 
@@ -72,7 +75,7 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
     }
 
     private String saveAlineCatalogItemsToDB() {
-        int entitiesSavedCount = catalogItemSaveAction.saveAlineItemsToDB(alineOutFile, sheetName);
+        int entitiesSavedCount = catalogItemSaveAction.saveAlineItemsToDB(alinePreparedFile, sheetName);
         return SAVE_INTO_DB_SUCCSESS_MESSAGE + entitiesSavedCount;
     }
 }

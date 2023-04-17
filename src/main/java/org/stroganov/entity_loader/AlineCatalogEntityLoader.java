@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * implementation of loading the value of fields of furniture items from an exel file,
  * deserializing entities and saving them in a list
- * row in exel file: samplf_article | model_article | model_description | dimesion_width | dimension_hieght | dimension_depth | cost1 |cost2 | cost3
+ * row in exel file: samplf_article | model_article | model_description | dimension_width | dimension_height | dimension_depth | cost1 |cost2 | cost3
  * each row converts to 6 CatalogItems with different Stiles
  */
 @Component
@@ -27,16 +27,18 @@ public class AlineCatalogEntityLoader implements EntityLoader {
                     "Phone: (708) 478-2471\n" +
                     "Email: info@alineintl.com\n" +
                     "Address: 9100 W 191st St, Mokena, IL 60448, United States";
+    public static final String SPLITERATOR = "-";
     private final Manufacture manufactureAline = new Manufacture(0, "Aline", MANUFACTURE_DESCRIPTION);
 
-    private static final Map<String, String> alineCatalogStylesMap
+    //key - article and style name, value - price position in exel file
+    private static final Map<String, Integer> alineCatalogStylesMap
             = Map.of(
-            "AC", "Aspen Charcoal Gray",
-            "SW", "Shaker White",
-            "CS", "Charleston Saddle",
-            "CW", "Charleston White",
-            "ES", "Shaker Espresso",
-            "AW", "Aspen White"
+            "AC-Aspen Charcoal Gray", 8,
+            "SW-Shaker White", 7,
+            "CS-Charleston Saddle", 6,
+            "CW-Charleston White", 6,
+            "ES-Shaker Espresso", 8,
+            "AW-Aspen White", 7
     );
     @Autowired
     private ExelFileReader exelFileReader;
@@ -57,26 +59,30 @@ public class AlineCatalogEntityLoader implements EntityLoader {
     private List<CatalogItem> createCatalogItemFromExelRow(List<Object> objectList) {
         Assert.notNull(objectList, CATALOG_ITEM_FROM_EXEL_ROW_IS_NULL);
         List<CatalogItem> catalogItemList = new ArrayList<>();
-        Dimension dimension = new Dimension();
-        Model model = new Model();
-        SampleF sampleF = new SampleF();
-        sampleF.setModel(model);
-        model.setDimension(dimension);
         String firstValue = objectList.get(0).toString().strip();
         if (firstValue.isEmpty()) {
             return catalogItemList;
         }
 
-        sampleF.setArticle(firstValue);
-        model.setArticle(objectList.get(1).toString());
-        model.setDescription((String) objectList.get(2));
-        dimension.setWidth(objectList.get(3).toString());
-        dimension.setHeight(objectList.get(4).toString());
-        dimension.setDepth(objectList.get(5).toString());
+        Dimension dimension = repositoryService.getOrCreateDimension(objectList.get(3).toString(),
+                objectList.get(4).toString(),
+                objectList.get(5).toString());
+        Model model = repositoryService.getOrCreateModel(objectList.get(1).toString(), objectList.get(2).toString(), dimension);
+        SampleF sampleF = repositoryService.getOrCreateSampleF(firstValue, model); //todo
+        Manufacture manufacture = repositoryService.getOrCreateManufacture(manufactureAline);
 
-        CatalogItem catalogItem = new CatalogItem();
-        catalogItem.setModel(model);
-        catalogItem.setProducer(manufactureAline);
+        for (Map.Entry<String, Integer> entry : alineCatalogStylesMap.entrySet()) {
+            String[] articleAndStyleNameBuf = entry.getKey().split(SPLITERATOR);
+            Assert.isTrue(articleAndStyleNameBuf.length == 2, "article And StyleName must be as key in HAsMAp and separated by" + SPLITERATOR);
+            CatalogItemStyle catalogItemStyle = repositoryService.getOrCreateCatalogItemStyle(articleAndStyleNameBuf[0], articleAndStyleNameBuf[1]);
+            double price = Double.parseDouble(objectList.get(entry.getValue()).toString().strip());
+            if (price == 0) {
+                continue;
+            }
+            CatalogItem catalogItem = new CatalogItem(0, model, manufacture, catalogItemStyle, price);
+            catalogItemList.add(catalogItem);
+        }
+        //row in exel file: samplf_article | model_article | model_description | dimension_width | dimension_height | dimension_depth | cost1 |cost2 | cost3
         return catalogItemList;
     }
 

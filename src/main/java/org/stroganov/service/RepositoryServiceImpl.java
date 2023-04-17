@@ -13,7 +13,6 @@ public class RepositoryServiceImpl implements RepositoryService {
     public final SampleFDAO sampleFDAO;
     public final DimensionDAO dimensionDAO;
     public final ManufactureDAO manufactureDAO;
-
     public final CatalogItemStyleDAO catalogItemStyleDAO;
 
     @Autowired
