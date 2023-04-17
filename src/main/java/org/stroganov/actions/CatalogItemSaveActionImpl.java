@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.stroganov.entities.CatalogItem;
+import org.stroganov.entities.SampleF;
 import org.stroganov.entity_loader.EntityLoader;
 import org.stroganov.exeptions.FileExtensionError;
 import org.stroganov.exeptions.NoSuchSheetException;
@@ -33,8 +34,10 @@ public class CatalogItemSaveActionImpl implements CatalogItemSaveAction {
     public int saveAlineItemsToDB(String sourceFileName, String sheetSourceName) {
         int savedEntitiesCount = 0;
         List<CatalogItem> catalogItemList;
+        List<SampleF> sampleFList;
         try {
             catalogItemList = entityLoader.loadCatalogItemsFromExelFile(sourceFileName, sheetSourceName);
+            sampleFList = entityLoader.getSampleFList();
         } catch (IOException | FileExtensionError e) {
             LOGGER.error(e);
             return savedEntitiesCount - 1;
@@ -43,7 +46,11 @@ public class CatalogItemSaveActionImpl implements CatalogItemSaveAction {
             return savedEntitiesCount - 1;
         }
         for (CatalogItem catalogItem : catalogItemList) {
-            repositoryService.saveOrUpdate(catalogItem);
+            repositoryService.saveCatalogItem(catalogItem);
+            savedEntitiesCount++;
+        }
+        for (SampleF sampleF : sampleFList) {
+            repositoryService.saveSampleF(sampleF); //todo
             savedEntitiesCount++;
         }
         return savedEntitiesCount;

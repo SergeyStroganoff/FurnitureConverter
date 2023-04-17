@@ -41,9 +41,10 @@ public class AlineCatalogEntityLoader implements EntityLoader {
             "ES-Shaker Espresso", 8,
             "AW-Aspen White", 7
     );
+
+    private final List<SampleF> sampleFList = new ArrayList<>();
     @Autowired
     private ExelFileReader exelFileReader;
-
     @Autowired
     private RepositoryService repositoryService;
 
@@ -59,21 +60,20 @@ public class AlineCatalogEntityLoader implements EntityLoader {
 
     private List<CatalogItem> createCatalogItemFromExelRow(List<Object> objectList) {
         Assert.notNull(objectList, CATALOG_ITEM_FROM_EXEL_ROW_IS_NULL);
-
         List<CatalogItem> catalogItemList = new ArrayList<>();
         String firstValue = objectList.get(0).toString().strip();
         if (firstValue.equals(EMPTY_SIGN)) {
             return catalogItemList;
         }
         // todo //todelete
-        objectList.forEach(System.out::println);
+        //objectList.forEach(System.out::println);
         //
-
         Dimension dimension = repositoryService.getOrCreateDimension(objectList.get(3).toString(),
                 objectList.get(4).toString(),
                 objectList.get(5).toString());
         Model model = repositoryService.getOrCreateModel(objectList.get(1).toString(), objectList.get(2).toString(), dimension);
-        SampleF sampleF = repositoryService.getOrCreateSampleF(firstValue, model); //todo
+        SampleF sampleF = repositoryService.getOrCreateSampleF(firstValue, model);
+        sampleFList.add(sampleF);
         Manufacture manufacture = repositoryService.getOrCreateManufacture(manufactureAline);
 
         for (Map.Entry<String, Integer> entry : alineCatalogStylesMap.entrySet()) {
@@ -91,5 +91,9 @@ public class AlineCatalogEntityLoader implements EntityLoader {
         return catalogItemList;
     }
 
+    @Override
+    public List<SampleF> getSampleFList() {
+        return sampleFList;
+    }
 }
 

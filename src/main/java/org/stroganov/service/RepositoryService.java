@@ -3,7 +3,8 @@ package org.stroganov.service;
 import org.stroganov.entities.*;
 
 public interface RepositoryService {
-    int saveOrUpdate(CatalogItem catalogItem);
+    int saveCatalogItem(CatalogItem catalogItem);
+    int saveSampleF(SampleF sampleF);
     SampleF getSampleFByArticle(String article);
     Model getModelByArticle(String article);
     Dimension getDimensionByWHD(String with, String height, String depth);

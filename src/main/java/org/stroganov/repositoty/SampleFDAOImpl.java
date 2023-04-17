@@ -35,4 +35,25 @@ public class SampleFDAOImpl extends ItemDAO implements SampleFDAO {
         }
         return sampleF;
     }
+
+    @Override
+    public int save(SampleF sampleF) {
+        if (sampleF == null) {
+            LOGGER.error(INPUT_PARAMETERS_CANNOT_BE_NULL);
+            throw new IllegalArgumentException(INPUT_PARAMETERS_CANNOT_BE_NULL);
+        }
+        Transaction transaction = null;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            session.save(sampleF);
+            transaction.commit();
+        } catch (Exception ex) {
+            LOGGER.error(ERROR_MESSAGE_FOR_QUERY, ex);
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            throw new RuntimeException(ERROR_MESSAGE_FOR_QUERY, ex);
+        }
+        return sampleF.getId();
+    }
 }

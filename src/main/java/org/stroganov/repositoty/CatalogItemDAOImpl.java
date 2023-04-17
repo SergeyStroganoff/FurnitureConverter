@@ -19,11 +19,11 @@ public class CatalogItemDAOImpl implements CatalogItemDAO {
     }
 
     @Override
-    public int saveOrUpdate(CatalogItem catalogItem) {
+    public int save(CatalogItem catalogItem) {
         Transaction transaction = null;
         try (Session session = sessionFactory.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.saveOrUpdate(catalogItem);
+            session.save(catalogItem);
             transaction.commit();
         } catch (Exception e) {
             LOGGER.error(e);

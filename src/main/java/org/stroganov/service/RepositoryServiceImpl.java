@@ -27,8 +27,13 @@ public class RepositoryServiceImpl implements RepositoryService {
     }
 
     @Override
-    public int saveOrUpdate(CatalogItem catalogItem) {
-        return catalogItemDAO.saveOrUpdate(catalogItem);
+    public int saveCatalogItem(CatalogItem catalogItem) {
+        return catalogItemDAO.save(catalogItem);
+    }
+
+    @Override
+    public int saveSampleF(SampleF sampleF) {
+        return sampleFDAO.save(sampleF);
     }
 
     @Override
