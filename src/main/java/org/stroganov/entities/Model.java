@@ -18,7 +18,7 @@ public class Model {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "article",unique = true)
+    @Column(name = "article",unique = true, length = 12)
     private String article;
 
     @Column(name = "description")
@@ -26,7 +26,7 @@ public class Model {
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
-    @JoinColumn(name = "dimension_id")
+    @JoinColumn(name = "dimension_id",referencedColumnName = "dimension_id")
     private Dimension dimension;
 }
 

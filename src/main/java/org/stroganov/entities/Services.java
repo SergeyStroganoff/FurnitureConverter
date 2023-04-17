@@ -16,7 +16,7 @@ public class Services {
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "name")
+    @Column(name = "name", length = 35)
     private String name;
     @Column(name = "description")
     private String description;

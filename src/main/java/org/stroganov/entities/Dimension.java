@@ -13,13 +13,13 @@ import javax.persistence.*;
 @ToString
 public class Dimension {
     @Id
-    @Column(name = "id")
+    @Column(name = "dimension_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "width")
+    @Column(name = "width",length = 10)
     private String width;
-    @Column(name = "height")
+    @Column(name = "height",length = 10)
     private String height;
-    @Column(name = "depth")
+    @Column(name = "depth",length = 10)
     private String depth;
 }

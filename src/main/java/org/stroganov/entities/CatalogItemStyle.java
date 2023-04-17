@@ -18,9 +18,9 @@ public class CatalogItemStyle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "style_article", nullable = false)
+    @Column(name = "style_article", nullable = false, length = 10)
     private String styleArticle;
 
-    @Column(name = "style_name", nullable = false)
+    @Column(name = "style_name", nullable = false, length = 35)
     private String styleName;
 }

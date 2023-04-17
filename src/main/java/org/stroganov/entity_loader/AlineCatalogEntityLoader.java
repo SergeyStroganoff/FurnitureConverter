@@ -6,11 +6,11 @@ import org.springframework.util.Assert;
 import org.stroganov.entities.*;
 import org.stroganov.exeptions.FileExtensionError;
 import org.stroganov.exeptions.NoSuchSheetException;
+import org.stroganov.service.RepositoryService;
 import org.stroganov.utils.ExelFileReader;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 /**
@@ -24,14 +24,25 @@ public class AlineCatalogEntityLoader implements EntityLoader {
     public static final String CATALOG_ITEM_FROM_EXEL_ROW_IS_NULL = "Input parameter 'objectList' in method createCatalogItemFromExelRow is NULL";
     private static final String MANUFACTURE_DESCRIPTION =
             "Aline International is a kitchen and bath cabinets wholesaler based in Great Chicago area." +
-            "Phone: (708) 478-2471\n" +
-            "Email: info@alineintl.com\n" +
-            "Address: 9100 W 191st St, Mokena, IL 60448, United States";
-    private final Manufacture manufacture = new Manufacture(0,"Aline", MANUFACTURE_DESCRIPTION);
+                    "Phone: (708) 478-2471\n" +
+                    "Email: info@alineintl.com\n" +
+                    "Address: 9100 W 191st St, Mokena, IL 60448, United States";
+    private final Manufacture manufactureAline = new Manufacture(0, "Aline", MANUFACTURE_DESCRIPTION);
 
-    private final HashMap alineStyleMap = new HashMap<>(); //todo
+    private static final Map<String, String> alineCatalogStylesMap
+            = Map.of(
+            "AC", "Aspen Charcoal Gray",
+            "SW", "Shaker White",
+            "CS", "Charleston Saddle",
+            "CW", "Charleston White",
+            "ES", "Shaker Espresso",
+            "AW", "Aspen White"
+    );
     @Autowired
     private ExelFileReader exelFileReader;
+
+    @Autowired
+    private RepositoryService repositoryService;
 
     @Override
     public List<CatalogItem> loadCatalogItemsFromExelFile(String sourceFileName, String sheetSourceName) throws IOException, FileExtensionError, NoSuchSheetException {
@@ -58,15 +69,16 @@ public class AlineCatalogEntityLoader implements EntityLoader {
 
         sampleF.setArticle(firstValue);
         model.setArticle(objectList.get(1).toString());
-        model.setDescription((String)objectList.get(2));
+        model.setDescription((String) objectList.get(2));
         dimension.setWidth(objectList.get(3).toString());
         dimension.setHeight(objectList.get(4).toString());
         dimension.setDepth(objectList.get(5).toString());
 
         CatalogItem catalogItem = new CatalogItem();
         catalogItem.setModel(model);
-        catalogItem.setProducer(manufacture);
+        catalogItem.setProducer(manufactureAline);
         return catalogItemList;
     }
+
 }
 

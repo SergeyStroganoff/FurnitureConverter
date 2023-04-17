@@ -8,13 +8,13 @@ import org.stroganov.repositoty.*;
 @Service
 public class RepositoryServiceImpl implements RepositoryService {
 
-    private final CatalogItemDAO catalogItemDAO;
-    private final ModelDAO modelDAO;
-    private final SampleFDAO sampleFDAO;
-    private final DimensionDAO dimensionDAO;
-    private final ManufactureDAO manufactureDAO;
+    public final CatalogItemDAO catalogItemDAO;
+    public final ModelDAO modelDAO;
+    public final SampleFDAO sampleFDAO;
+    public final DimensionDAO dimensionDAO;
+    public final ManufactureDAO manufactureDAO;
 
-    private final CatalogItemStyleDAO catalogItemStyleDAO;
+    public final CatalogItemStyleDAO catalogItemStyleDAO;
 
     @Autowired
     public RepositoryServiceImpl(CatalogItemDAO catalogItemDAO, ModelDAO modelDAO, SampleFDAO sampleFDAO, DimensionDAO dimensionDAO, ManufactureDAO manufactureDAO, CatalogItemStyleDAO catalogItemStyleDAO) {
@@ -54,5 +54,47 @@ public class RepositoryServiceImpl implements RepositoryService {
     @Override
     public CatalogItemStyle getCatalogItemStyleByArticleAndName(String article, String name) {
         return catalogItemStyleDAO.getByArticleAndName(article, name);
+    }
+
+    @Override
+    public Dimension getOrCreateDimension(String width, String height, String depth) {
+        Dimension dimension = getDimensionByWHD(width, height, depth);
+        if (dimension == null) {
+            dimension = new Dimension(0, width, height, depth);
+        }
+        return dimension;
+    }
+
+    @Override
+    public Model getOrCreateModel(String article, String description, Dimension dimension) {
+        Model model = getModelByArticle(article);
+        if (model == null) {
+            model = new Model(0, article, description, dimension);
+        }
+        return model;
+    }
+
+    @Override
+    public SampleF getOrCreateSampleF(String article, Model model) {
+        SampleF sampleF = getSampleFByArticle(article);
+        if (sampleF == null) {
+            sampleF = new SampleF(0, article, model);
+        }
+        return sampleF;
+    }
+
+    @Override
+    public Manufacture getOrCreateManufacture(Manufacture manufactureEntity) {
+        Manufacture manufacture = getManufactureByName(manufactureEntity.getName());
+        return manufacture == null ? manufactureEntity : manufacture;
+    }
+
+    @Override
+    public CatalogItemStyle getOrCreateCatalogItemStyle(String article, String name) {
+        CatalogItemStyle catalogItemStyle = getCatalogItemStyleByArticleAndName(article, name);
+        if (catalogItemStyle == null) {
+            catalogItemStyle = new CatalogItemStyle(0, article, name);
+        }
+        return catalogItemStyle;
     }
 }
