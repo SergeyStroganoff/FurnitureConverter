@@ -2,14 +2,13 @@ package org.stroganov.repositoty;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import org.stroganov.entities.Dimension;
 
 @Repository
-@Transactional
 public class DimensionDAOImpl extends ItemDAO implements DimensionDAO {
     @Autowired
     public DimensionDAOImpl(SessionFactory sessionFactory) {
@@ -24,11 +23,13 @@ public class DimensionDAOImpl extends ItemDAO implements DimensionDAO {
         }
         Dimension dimension;
         try (Session session = sessionFactory.getCurrentSession()) {
+            Transaction transaction = session.beginTransaction();
             Query<Dimension> query = session.createQuery("FROM Dimension WHERE width = :widthValue AND height = :heightValue AND depth = :depthValue", Dimension.class);
             query.setParameter("widthValue", widthValue);
             query.setParameter("heightValue", heightValue);
             query.setParameter("depthValue", depthValue);
             dimension = query.uniqueResult();
+            transaction.commit();
         } catch (Exception ex) {
             LOGGER.error(ERROR_MESSAGE_FOR_QUERY, ex);
             throw new RuntimeException(ERROR_MESSAGE_FOR_QUERY, ex);

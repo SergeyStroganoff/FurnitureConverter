@@ -2,6 +2,7 @@ package org.stroganov.repositoty;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,11 +24,12 @@ public class CatalogItemStyleDAOImpl extends ItemDAO implements CatalogItemStyle
         }
         CatalogItemStyle catalogItemStyle;
         try (Session session = sessionFactory.getCurrentSession()) {
+            Transaction transaction = session.beginTransaction();
             Query<CatalogItemStyle> query = session.createQuery("FROM CatalogItemStyle WHERE styleArticle = :articleValue AND styleName = :nameValue", CatalogItemStyle.class);
             query.setParameter("articleValue", article);
             query.setParameter("nameValue", name);
-
-           catalogItemStyle = query.uniqueResult();
+            catalogItemStyle = query.uniqueResult();
+            transaction.commit();
         } catch (Exception ex) {
             LOGGER.error(ERROR_MESSAGE_FOR_QUERY, ex);
             throw new RuntimeException(ERROR_MESSAGE_FOR_QUERY, ex);

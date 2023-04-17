@@ -28,6 +28,7 @@ public class AlineCatalogEntityLoader implements EntityLoader {
                     "Email: info@alineintl.com\n" +
                     "Address: 9100 W 191st St, Mokena, IL 60448, United States";
     public static final String SPLITERATOR = "-";
+    public static final String EMPTY_SIGN = "-";
     private final Manufacture manufactureAline = new Manufacture(0, "Aline", MANUFACTURE_DESCRIPTION);
 
     //key - article and style name, value - price position in exel file
@@ -58,11 +59,15 @@ public class AlineCatalogEntityLoader implements EntityLoader {
 
     private List<CatalogItem> createCatalogItemFromExelRow(List<Object> objectList) {
         Assert.notNull(objectList, CATALOG_ITEM_FROM_EXEL_ROW_IS_NULL);
+
         List<CatalogItem> catalogItemList = new ArrayList<>();
         String firstValue = objectList.get(0).toString().strip();
-        if (firstValue.isEmpty()) {
+        if (firstValue.equals(EMPTY_SIGN)) {
             return catalogItemList;
         }
+        // todo //todelete
+        objectList.forEach(System.out::println);
+        //
 
         Dimension dimension = repositoryService.getOrCreateDimension(objectList.get(3).toString(),
                 objectList.get(4).toString(),

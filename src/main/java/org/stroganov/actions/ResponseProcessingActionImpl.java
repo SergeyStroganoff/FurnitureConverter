@@ -16,6 +16,7 @@ import java.util.List;
 @Component
 public class ResponseProcessingActionImpl implements ResponseProcessingAction {
 
+    private static final String SAVE_INTO_DB_UNSUCCESSFUL_MESSAGE = "Saving into DB was unsuccessful. Saved: ";
     @Value("${output.file}")
     private String alineOutFile;
 
@@ -28,8 +29,8 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
     @Value("${sheet}")
     private String sheetName;
 
-    public static final String CONVERSION_SUCCSESS_MESSAGE = "Conversion was successful. Result saved in file: ";
-    public static final String SAVE_INTO_DB_SUCCSESS_MESSAGE = "Saving into DB was successful. Saved: ";
+    public static final String CONVERSION_SUCCESSFUL_MESSAGE = "Conversion was successful. Result saved in file: ";
+    public static final String SAVE_INTO_DB_SUCCESS_MESSAGE = "Saving into DB was successful. Saved: ";
     public static final String WRONG_INPUT_MESSAGE = "Wrong input, try again";
     @Autowired
     private ConversionAction conversionAction;
@@ -71,11 +72,15 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
         } catch (IOException | FileExtensionError | NoSuchSheetException e) {
             return e.getMessage();
         }
-        return CONVERSION_SUCCSESS_MESSAGE + alineOutFile;
+        return CONVERSION_SUCCESSFUL_MESSAGE + alineOutFile;
     }
 
     private String saveAlineCatalogItemsToDB() {
         int entitiesSavedCount = catalogItemSaveAction.saveAlineItemsToDB(alinePreparedFile, sheetName);
-        return SAVE_INTO_DB_SUCCSESS_MESSAGE + entitiesSavedCount;
+        if (entitiesSavedCount > 0) {
+            return SAVE_INTO_DB_SUCCESS_MESSAGE + entitiesSavedCount;
+        } else {
+            return SAVE_INTO_DB_UNSUCCESSFUL_MESSAGE + entitiesSavedCount;
+        }
     }
 }

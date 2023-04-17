@@ -31,7 +31,7 @@ public class ExelFileReaderImpl implements ExelFileReader {
                 }
             }
         }
-        log.error("\"Sheet \"+ sheetName + \" not founded in this book\"");
+        log.error("Log: Sheet "+ sheetName + " not founded in this book");
         throw new NoSuchSheetException("Sheet "+ sheetName + " not founded in this book");
     }
 

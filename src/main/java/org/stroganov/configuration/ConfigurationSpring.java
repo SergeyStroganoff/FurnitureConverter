@@ -14,8 +14,8 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan("org.stroganov")
 @EnableTransactionManagement
+@ComponentScan("org.stroganov")
 @PropertySource("classpath:app.properties")
 @PropertySource(value = {"classpath:hibernate.properties"})
 public class ConfigurationSpring {

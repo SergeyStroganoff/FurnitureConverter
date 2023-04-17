@@ -19,7 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CatalogItemSaveActionImpl implements CatalogItemSaveAction {
     public static final Logger LOGGER = LogManager.getLogger(CatalogItemSaveActionImpl.class);
-    public static final String SHEET_IN_EXEL_FILE_WAS_T_FOUND = "Sheet in exelFile was't found";
+    public static final String SHEET_IN_EXEL_FILE_WAS_T_FOUND = "Sheet in exelFile wasn't found";
     private EntityLoader entityLoader;
     private RepositoryService repositoryService;
 

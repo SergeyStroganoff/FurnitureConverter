@@ -2,6 +2,7 @@ package org.stroganov.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.stroganov.entities.*;
 import org.stroganov.repositoty.*;
 
@@ -41,6 +42,7 @@ public class RepositoryServiceImpl implements RepositoryService {
     }
 
     @Override
+    @Transactional
     public Dimension getDimensionByWHD(String with, String height, String depth) {
         return dimensionDAO.findDimensionByDimensions(with, height, depth);
     }

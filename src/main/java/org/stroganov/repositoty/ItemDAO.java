@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.stereotype.Component;
 
@@ -24,10 +25,13 @@ public abstract class ItemDAO {
             throw new IllegalArgumentException(INPUT_PARAMETERS_CANNOT_BE_NULL);
         }
         T entity;
+        Transaction transaction;
         try (Session session = sessionFactory.getCurrentSession()) {
+            transaction = session.beginTransaction();
             Query<T> query = session.createQuery("FROM " + entityClass.getSimpleName() + " WHERE " + parameterName + " = :paramValue", entityClass);
             query.setParameter("paramValue", parameterValue);
             entity = query.uniqueResult();
+            transaction.commit();
         } catch (Exception ex) {
             LOGGER.error(ERROR_MESSAGE_FOR_QUERY, ex);
             throw new RuntimeException(ERROR_MESSAGE_FOR_QUERY, ex);

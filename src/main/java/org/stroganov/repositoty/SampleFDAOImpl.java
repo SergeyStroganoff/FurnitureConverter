@@ -2,6 +2,7 @@ package org.stroganov.repositoty;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,6 @@ public class SampleFDAOImpl extends ItemDAO implements SampleFDAO {
     @Autowired
     public SampleFDAOImpl(SessionFactory sessionFactory) {
         super(sessionFactory);
-
     }
 
     @Override
@@ -24,9 +24,11 @@ public class SampleFDAOImpl extends ItemDAO implements SampleFDAO {
 
         SampleF sampleF;
         try (Session session = sessionFactory.getCurrentSession()) {
+            Transaction transaction = session.beginTransaction();
             Query<SampleF> query = session.createQuery("FROM SampleF WHERE article = :articleValue", SampleF.class);
             query.setParameter("articleValue", article);
             sampleF = query.uniqueResult();
+            transaction.commit();
         } catch (Exception ex) {
             LOGGER.error(ERROR_MESSAGE_FOR_QUERY, ex);
             throw new RuntimeException(ERROR_MESSAGE_FOR_QUERY, ex);
