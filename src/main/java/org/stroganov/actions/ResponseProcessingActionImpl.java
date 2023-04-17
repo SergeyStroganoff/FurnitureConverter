@@ -17,20 +17,24 @@ import java.util.List;
 public class ResponseProcessingActionImpl implements ResponseProcessingAction {
 
     @Value("${output.file}")
-    private String outFile;
+    private String alineOutFile;
 
     @Value("${source.file}")
-    private String sourceFile;
+    private String alineSourceFile;
 
     @Value("${sheet}")
-    private String sheet;
+    private String sheetName;
 
-    public static final String SUCSESS_MESSAGE = "Conversion was successful. Result saved in file: ";
+    public static final String CONVERSION_SUCCSESS_MESSAGE = "Conversion was successful. Result saved in file: ";
+    public static final String SAVE_INTO_DB_SUCCSESS_MESSAGE = "Saving into DB was successful. Saved: ";
     public static final String WRONG_INPUT_MESSAGE = "Wrong input, try again";
     @Autowired
     private ConversionAction conversionAction;
     @Autowired
     private ResultHandler resultHandler;
+
+    @Autowired
+    private CatalogItemSaveAction catalogItemSaveAction;
 
     @Autowired
     Environment environment;
@@ -44,6 +48,7 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
                 break;
             }
             case "2": {
+                resultMessage = saveAlineCatalogItemsToDB();
                 break;
             }
             case "3": {
@@ -55,13 +60,19 @@ public class ResponseProcessingActionImpl implements ResponseProcessingAction {
         }
         return resultMessage;
     }
+
     private String alineConversation() {
         try {
-            List<String[]> listBufferedStrings = conversionAction.convertAline(sourceFile, sheet);
-            resultHandler.saveToFile(outFile, listBufferedStrings);
+            List<String[]> listBufferedStrings = conversionAction.convertAline(alineSourceFile, sheetName);
+            resultHandler.saveToFile(alineOutFile, listBufferedStrings, sheetName);
         } catch (IOException | FileExtensionError | NoSuchSheetException e) {
             return e.getMessage();
         }
-        return SUCSESS_MESSAGE + outFile;
+        return CONVERSION_SUCCSESS_MESSAGE + alineOutFile;
+    }
+
+    private String saveAlineCatalogItemsToDB() {
+        int entitiesSavedCount = catalogItemSaveAction.saveAlineItemsToDB(alineOutFile, sheetName);
+        return SAVE_INTO_DB_SUCCSESS_MESSAGE + entitiesSavedCount;
     }
 }

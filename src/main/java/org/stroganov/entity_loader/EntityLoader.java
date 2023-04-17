@@ -8,6 +8,5 @@ import java.io.IOException;
 import java.util.List;
 
 public interface EntityLoader {
-
     List<CatalogItem> loadCatalogItemsFromExelFile(String sourceFileName, String sheetSourceName) throws IOException, FileExtensionError, NoSuchSheetException;
 }

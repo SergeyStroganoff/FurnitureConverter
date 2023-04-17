@@ -25,8 +25,6 @@ import java.util.Map;
 public class ConversionActionImpl implements ConversionAction {
 
     private static final Logger LOGGER = LogManager.getLogger(ConversionActionImpl.class);
-
-
     private String sourceFileName;
     private String sheetSourceName;
     @Autowired

@@ -8,5 +8,5 @@ public interface CatalogItemSaveAction {
     /**
     Method saves furniture items into MySQL DB
      */
-    void saveAlineItemsToDB(String sourceFileName, String sheetSourceName);
+    int saveAlineItemsToDB(String sourceFileName, String sheetSourceName);
 }

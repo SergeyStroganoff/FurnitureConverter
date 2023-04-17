@@ -16,16 +16,18 @@ import java.util.Map;
 /**
  * implementation of loading the value of fields of furniture items from an exel file,
  * deserializing entities and saving them in a list
+ * row in exel file: samplf_article | model_article | model_description | dimesion_width | dimension_hieght | dimension_depth | cost1 |cost2 | cost3
+ * each row converts to 6 CatalogItems with different Stiles
  */
 @Component
 public class AlineCatalogEntityLoader implements EntityLoader {
     public static final String CATALOG_ITEM_FROM_EXEL_ROW_IS_NULL = "Input parameter 'objectList' in method createCatalogItemFromExelRow is NULL";
-    private static final String DESCRIPTION =
+    private static final String MANUFACTURE_DESCRIPTION =
             "Aline International is a kitchen and bath cabinets wholesaler based in Great Chicago area." +
             "Phone: (708) 478-2471\n" +
             "Email: info@alineintl.com\n" +
             "Address: 9100 W 191st St, Mokena, IL 60448, United States";
-    private final Manufacture manufacture = new Manufacture(0,"Aline", DESCRIPTION);
+    private final Manufacture manufacture = new Manufacture(0,"Aline", MANUFACTURE_DESCRIPTION);
 
     private final HashMap alineStyleMap = new HashMap<>(); //todo
     @Autowired

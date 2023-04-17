@@ -13,9 +13,9 @@ import javax.persistence.*;
 @ToString
 public class Services {
     @Id
-    @Column(name = "service_id")
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private int id;
     @Column(name = "name")
     private String name;
     @Column(name = "description")

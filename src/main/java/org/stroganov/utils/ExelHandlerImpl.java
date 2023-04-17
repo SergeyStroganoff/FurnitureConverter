@@ -50,9 +50,9 @@ public class ExelHandlerImpl implements ResultHandler {
     }
 
     @Override
-    public void saveToFile(String filePathName, Map<String, String> table) {
+    public void saveToFile(String filePathName, Map<String, String> table, String sheetName) {
         book = new HSSFWorkbook();
-        sheet = book.createSheet("Result");
+        sheet = book.createSheet(sheetName);
         Row row = sheet.createRow(0);
         Cell tableName = row.createCell(0);
         tableName.setCellValue("Result conversation tables");
@@ -61,9 +61,9 @@ public class ExelHandlerImpl implements ResultHandler {
     }
 
     @Override
-    public void saveToFile(String filePathName, List<String[]> list) {
+    public void saveToFile(String filePathName, List<String[]> list, String sheetName) {
         book = new HSSFWorkbook();
-        sheet = book.createSheet("Result");
+        sheet = book.createSheet(sheetName);
         Row row = sheet.createRow(0);
         Cell tableName = row.createCell(0);
         tableName.setCellValue("Result conversation tables");

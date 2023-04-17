@@ -24,10 +24,11 @@ class ExelHandlerImplTest {
         // given
         System.out.println(userDirectory);
         String fileName = "test";
+        String sheetName = "rsult";
         Map<String, String> testMap = new HashMap<>();
         testMap.put("DB3040", "B3040");
         //when
-        exelHandler.saveToFile(fileName, testMap);
+        exelHandler.saveToFile(fileName, testMap, sheetName);
         //then
         File tempFile = new File(fileName + ".xls");
         boolean exists = tempFile.exists();
