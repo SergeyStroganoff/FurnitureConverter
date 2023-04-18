@@ -13,7 +13,6 @@ public class UserInterfaceConsoleImpl implements UserInterface {
 
     private static final Logger LOGGER = LogManager.getLogger(UserInterfaceConsoleImpl.class);
     public static final String PRINTED_MESSAGE = "Printed message: ";
-
     private void print(String s) {
         System.out.println(s);
         LOGGER.debug(PRINTED_MESSAGE + s);

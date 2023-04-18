@@ -5,10 +5,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.stroganov.entities.SampleF;
 
-@Component
+@Repository
 public class SampleFDAOImpl extends ItemDAO implements SampleFDAO {
     @Autowired
     public SampleFDAOImpl(SessionFactory sessionFactory) {
@@ -21,7 +21,6 @@ public class SampleFDAOImpl extends ItemDAO implements SampleFDAO {
             LOGGER.error(INPUT_PARAMETERS_CANNOT_BE_NULL);
             throw new IllegalArgumentException(INPUT_PARAMETERS_CANNOT_BE_NULL);
         }
-
         SampleF sampleF;
         try (Session session = sessionFactory.getCurrentSession()) {
             Transaction transaction = session.beginTransaction();
@@ -35,7 +34,6 @@ public class SampleFDAOImpl extends ItemDAO implements SampleFDAO {
         }
         return sampleF;
     }
-
     @Override
     public int save(SampleF sampleF) {
         if (sampleF == null) {

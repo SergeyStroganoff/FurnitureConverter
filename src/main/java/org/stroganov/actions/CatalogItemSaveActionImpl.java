@@ -50,8 +50,7 @@ public class CatalogItemSaveActionImpl implements CatalogItemSaveAction {
             savedEntitiesCount++;
         }
         for (SampleF sampleF : sampleFList) {
-            repositoryService.saveSampleF(sampleF); //todo
-            savedEntitiesCount++;
+            repositoryService.saveSampleF(sampleF);
         }
         return savedEntitiesCount;
     }

@@ -14,11 +14,9 @@ import java.util.List;
 import java.util.Map;
 @Component
 public class ExelHandlerImpl implements ResultHandler {
-
     private Workbook book;
     private Sheet sheet;
     private final String EXEL_EXT = ".xls";
-
 
     private int createExelRow(int rowNumber, String... savingString) {
         Row row = sheet.createRow(rowNumber);

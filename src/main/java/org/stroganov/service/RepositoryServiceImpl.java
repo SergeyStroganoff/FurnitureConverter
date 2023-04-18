@@ -47,7 +47,6 @@ public class RepositoryServiceImpl implements RepositoryService {
     }
 
     @Override
-    @Transactional
     public Dimension getDimensionByWHD(String with, String height, String depth) {
         return dimensionDAO.findDimensionByDimensions(with, height, depth);
     }

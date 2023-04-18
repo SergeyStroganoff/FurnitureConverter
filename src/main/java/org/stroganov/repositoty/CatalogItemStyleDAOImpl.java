@@ -6,9 +6,10 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.stroganov.entities.CatalogItemStyle;
 
-@Component
+@Repository
 public class CatalogItemStyleDAOImpl extends ItemDAO implements CatalogItemStyleDAO {
 
     @Autowired
