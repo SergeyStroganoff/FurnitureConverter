@@ -53,7 +53,9 @@ public class ConfigurationSpring {
         properties.put(AvailableSettings.POOL_SIZE, env.getRequiredProperty("hibernate.connection.pool"));
         properties.put(AvailableSettings.CURRENT_SESSION_CONTEXT_CLASS, env.getRequiredProperty("hibernate.current_session_context_class"));
         properties.put(AvailableSettings.HBM2DDL_CHARSET_NAME, env.getRequiredProperty("hibernate.connection.CharSet"));
-        properties.put(AvailableSettings.FORMAT_SQL, "hibernate.sql_format");
+        properties.put(AvailableSettings.FORMAT_SQL, env.getRequiredProperty("hibernate.sql_format"));
+        properties.put(AvailableSettings.ORDER_INSERTS, env.getRequiredProperty("hibernate.order_insert"));
+        properties.put(AvailableSettings.ORDER_UPDATES, env.getRequiredProperty("hibernate.order_update"));
         return properties;
     }
 

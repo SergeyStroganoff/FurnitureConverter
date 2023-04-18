@@ -2,7 +2,6 @@ package org.stroganov.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.stroganov.entities.*;
 import org.stroganov.repositoty.*;
 
@@ -33,7 +32,11 @@ public class RepositoryServiceImpl implements RepositoryService {
 
     @Override
     public int saveSampleF(SampleF sampleF) {
-        return sampleFDAO.save(sampleF);
+        SampleF sf = getSampleFByArticle(sampleF.getArticle());
+        if (sf == null) {
+            return sampleFDAO.save(sampleF);
+        }
+        return sf.getId();
     }
 
     @Override

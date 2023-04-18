@@ -75,7 +75,6 @@ public class AlineCatalogEntityLoader implements EntityLoader {
         SampleF sampleF = repositoryService.getOrCreateSampleF(firstValue, model);
         sampleFList.add(sampleF);
         Manufacture manufacture = repositoryService.getOrCreateManufacture(manufactureAline);
-
         for (Map.Entry<String, Integer> entry : alineCatalogStylesMap.entrySet()) {
             String[] articleAndStyleNameBuf = entry.getKey().split(SPLITERATOR);
             Assert.isTrue(articleAndStyleNameBuf.length == 2, "article And StyleName must be as key in HAsMAp and separated by" + SPLITERATOR);
