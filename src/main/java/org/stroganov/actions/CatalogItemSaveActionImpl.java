@@ -45,10 +45,9 @@ public class CatalogItemSaveActionImpl implements CatalogItemSaveAction {
             LOGGER.error(SHEET_IN_EXEL_FILE_WAS_T_FOUND, e);
             return savedEntitiesCount - 1;
         }
-        for (CatalogItem catalogItem : catalogItemList) {
-            repositoryService.saveCatalogItem(catalogItem);
-            savedEntitiesCount++;
-        }
+        repositoryService.saveAllCatalogItem(catalogItemList);
+        savedEntitiesCount = catalogItemList.size();
+
         for (SampleF sampleF : sampleFList) {
             repositoryService.saveSampleF(sampleF);
         }

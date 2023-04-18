@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import org.stroganov.entities.*;
 import org.stroganov.repositoty.*;
 
+import java.util.List;
+
 @Service
 public class RepositoryServiceImpl implements RepositoryService {
 
@@ -28,6 +30,11 @@ public class RepositoryServiceImpl implements RepositoryService {
     @Override
     public int saveCatalogItem(CatalogItem catalogItem) {
         return catalogItemDAO.save(catalogItem);
+    }
+
+    @Override
+    public void saveAllCatalogItem(List<CatalogItem> catalogItem) {
+        catalogItemDAO.saveAll(catalogItem);
     }
 
     @Override

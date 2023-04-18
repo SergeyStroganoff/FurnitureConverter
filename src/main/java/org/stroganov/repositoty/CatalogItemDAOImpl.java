@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.stroganov.entities.CatalogItem;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
 @Repository
 public class CatalogItemDAOImpl implements CatalogItemDAO {
     private final SessionFactory sessionFactory;
@@ -33,4 +36,23 @@ public class CatalogItemDAOImpl implements CatalogItemDAO {
         }
         return catalogItem.getId();
     }
+
+    @Transactional
+    @Override
+    public void saveAll(List<CatalogItem> catalogItemList) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            for (CatalogItem item : catalogItemList) {
+                session.save(item);
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            LOGGER.error(e);
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+    }
+
 }

@@ -2,8 +2,13 @@ package org.stroganov.service;
 
 import org.stroganov.entities.*;
 
+import java.util.List;
+
 public interface RepositoryService {
     int saveCatalogItem(CatalogItem catalogItem);
+
+    void saveAllCatalogItem(List<CatalogItem> catalogItem);
+
     int saveSampleF(SampleF sampleF);
     SampleF getSampleFByArticle(String article);
     Model getModelByArticle(String article);
