@@ -35,10 +35,10 @@ public class CatalogItemSaveActionImpl implements CatalogItemSaveAction {
     public int saveAlineItemsToDB(String sourceFileName, String sheetSourceName) {
         int savedEntitiesCount = 0;
         List<CatalogItem> catalogItemList;
-        Set<SampleF> sampleFList;
+        Set<SampleF> sampleFHashSet;
         try {
             catalogItemList = entityLoader.loadCatalogItemsFromExelFile(sourceFileName, sheetSourceName);
-            sampleFList = entityLoader.getSampleFList();
+            sampleFHashSet = entityLoader.getSampleFList();
         } catch (IOException | FileExtensionError e) {
             LOGGER.error(e);
             return savedEntitiesCount - 1;
@@ -49,7 +49,7 @@ public class CatalogItemSaveActionImpl implements CatalogItemSaveAction {
         repositoryService.saveAllCatalogItem(catalogItemList);
         savedEntitiesCount = catalogItemList.size();
 
-        for (SampleF sampleF : sampleFList) {
+        for (SampleF sampleF : sampleFHashSet) {
             repositoryService.saveSampleF(sampleF);
         }
         return savedEntitiesCount;

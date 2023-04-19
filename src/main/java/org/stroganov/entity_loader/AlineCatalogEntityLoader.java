@@ -28,6 +28,7 @@ public class AlineCatalogEntityLoader implements EntityLoader {
                     "Address: 9100 W 191st St, Mokena, IL 60448, United States";
     public static final String SPLITERATOR = "-";
     public static final String EMPTY_SIGN = "-";
+    public static final String SAMPLE_F_SPLITERATOR = ";";
     private final Manufacture manufactureAline = new Manufacture(0, "Aline", MANUFACTURE_DESCRIPTION);
 
     //key - article and style name, value - price position in exel file
@@ -65,15 +66,19 @@ public class AlineCatalogEntityLoader implements EntityLoader {
         if (firstValue.equals(EMPTY_SIGN)) {
             return catalogItemList;
         }
+        String[] sampleFArticlesBuf = firstValue.split(SAMPLE_F_SPLITERATOR);
         // todo //todelete
         //objectList.forEach(System.out::println);
-        //
         Dimension dimension = repositoryService.getOrCreateDimension(objectList.get(3).toString(),
                 objectList.get(4).toString(),
                 objectList.get(5).toString());
         Model model = repositoryService.getOrCreateModel(objectList.get(1).toString(), objectList.get(2).toString(), dimension);
-        SampleF sampleF = repositoryService.getOrCreateSampleF(firstValue, model);
-        sampleFList.add(sampleF);
+
+        for (String stringSampleFArticle : sampleFArticlesBuf) {
+            SampleF sampleF = repositoryService.getOrCreateSampleF(stringSampleFArticle, model);
+            sampleFList.add(sampleF);
+        }
+
         Manufacture manufacture = repositoryService.getOrCreateManufacture(manufactureAline);
         for (Map.Entry<String, Integer> entry : alineCatalogStylesMap.entrySet()) {
             String[] articleAndStyleNameBuf = entry.getKey().split(SPLITERATOR);
