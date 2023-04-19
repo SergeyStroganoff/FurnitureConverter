@@ -15,6 +15,7 @@ import org.stroganov.service.RepositoryService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 @Component
 @NoArgsConstructor
@@ -34,7 +35,7 @@ public class CatalogItemSaveActionImpl implements CatalogItemSaveAction {
     public int saveAlineItemsToDB(String sourceFileName, String sheetSourceName) {
         int savedEntitiesCount = 0;
         List<CatalogItem> catalogItemList;
-        List<SampleF> sampleFList;
+        Set<SampleF> sampleFList;
         try {
             catalogItemList = entityLoader.loadCatalogItemsFromExelFile(sourceFileName, sheetSourceName);
             sampleFList = entityLoader.getSampleFList();

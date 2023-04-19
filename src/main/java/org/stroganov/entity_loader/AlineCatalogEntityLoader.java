@@ -10,9 +10,8 @@ import org.stroganov.service.RepositoryService;
 import org.stroganov.utils.ExelFileReader;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 /**
  * implementation of loading the value of fields of furniture items from an exel file,
  * deserializing entities and saving them in a list
@@ -39,10 +38,11 @@ public class AlineCatalogEntityLoader implements EntityLoader {
             "CS-Charleston Saddle", 6,
             "CW-Charleston White", 6,
             "ES-Shaker Espresso", 8,
-            "AW-Aspen White", 7
+            "AW-Aspen White", 7,
+            "GR-Shaker Gray", 8
     );
 
-    private final List<SampleF> sampleFList = new ArrayList<>();
+    private final Set<SampleF> sampleFList = new HashSet<>();
     @Autowired
     private ExelFileReader exelFileReader;
     @Autowired
@@ -91,7 +91,7 @@ public class AlineCatalogEntityLoader implements EntityLoader {
     }
 
     @Override
-    public List<SampleF> getSampleFList() {
+    public Set<SampleF> getSampleFList() {
         return sampleFList;
     }
 }
